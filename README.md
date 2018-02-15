@@ -10,27 +10,67 @@ The LoRaWAN communication part (Joining the network with OTAA and usage of the L
 is based on work of Thomas Telkamp and Matthijs Kooijman which
 can be found here: https://github.com/matthijskooijman/arduino-lmic/blob/master/examples/ttn-otaa/ttn-otaa.ino
 
+Instructions for assembly and wiring it up can be found here: [ASSEMBLY.md](ASSEMBLY.md).
+
+![Octopus and LoRa FeatherWing](media/octopus_featherwing.png)
+
 ## Arduino IDE Setup
 Follow the instructions given here:
 https://learn.adafruit.com/adafruit-feather-huzzah-esp8266/using-arduino-ide
 
 When finished, you should be able to get the "Blink Test" sketch running successfully.
 
-## LMIC Library for Arduino
-Install the LMIC library for Arduino.
+### Libraries
+You need to install several libraries in the Arduino IDE
 
 Sketch --> Include Library --> Manage Libraries ...
-Search for "LMIC"
 
-Install "IBM LMIC Framework - Arduino Port of the LMIC"
+* "IBM LMIC Framework - Arduino Port of the LMIC"
+* "Adafruit Unified Sensor"
+* "Adafruit BME680 Library"
+* "Adafruit BNO055"
+* "CayenneLPP" by The Things Network
 
-## Sensor Libraries
-Install library "Adafruit Unified Sensor"
+## Connectivity to the Bosch IoT Hub
+The LoRa Network server needs to forward the device's payload to the HTTP Connector of
+the Bosch IoT Hub. Please use the LoRaWAN Reverse Proxy Server to connect.
 
-Install library "Adafruit BME680 Library"
+* Actility ThingParkPartner: Use URL https://lorawan-reverse-proxy.apps.de1.bosch-iot-cloud.com/actility?apikey=abc123
+* The Things Network: Use URL https://lorawan-reverse-proxy.apps.de1.bosch-iot-cloud.com/ttn?apikey=abc123
 
-Install library "Adafruit BNO055"
+Please ask the Hack Coaches for a valid `apikey`, as the one given here does not work.
 
-# Other libraries
-Install library "CayenneLPP" by The Things Network
+## Informationmodel in Eclipse Vorto
+Please note that there is already a information model prepared in Eclipse Vorto that can
+be used for this example:
 
+**OctopusLoRaFeatherWing** InformationModel
+
+    namespace com.bosch.bcx2018
+    version 1.0.0
+    displayname "OctopusLoRaFeatherWing"
+    description "Information Model for OctopusLoRaFeatherWing"
+    category iot
+
+    using com.ipso.smartobjects.Temperature; 0.0.1
+    using com.ipso.smartobjects.Barometer; 0.0.1
+    using com.ipso.smartobjects.Humidity; 0.0.1
+    using com.ipso.smartobjects.Analog_Input; 0.0.1
+    using com.ipso.smartobjects.Accelerometer; 0.0.1
+    
+    infomodel OctopusLoRaFeatherWing {
+	
+	    functionblocks {
+		    temperature as Temperature
+		    barometer as Barometer
+		    humidity as Humidity
+		    analog_input as Analog_Input
+		    accelerometer as Accelerometer
+	    }
+    }
+
+Custom payload mappers that map the sensor data given in the CayenneLPP format payload
+to the Ditto format were already set up for this information model. Using this information model,
+you directly get the sensor data in your "digital twin" in "Things".
+
+![Dashboard](media/dashboard.png)

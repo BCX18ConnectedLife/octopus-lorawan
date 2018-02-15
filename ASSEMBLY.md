@@ -1,6 +1,6 @@
 # Assembly of the Adafruit LoRa Radio FeatherWing
 This document shows how to assemble the Adafruit LoRa Radio FeatherWing
-and how to write it up in a way to be used by the LMIC library.
+and how to wire it up in a way to be used by the LMIC library.
 
 For the assembly, you need
 * The [Adafruit LoRa Radio FeatherWing](https://learn.adafruit.com/radio-featherwing)
