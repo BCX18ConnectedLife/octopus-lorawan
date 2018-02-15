@@ -22,7 +22,9 @@ Install "IBM LMIC Framework - Arduino Port of the LMIC"
 
 ## Sensor Libraries
 Install library "Adafruit Unified Sensor"
+
 Install library "Adafruit BME680 Library"
+
 Install library "Adafruit BNO055"
 
 # Other libraries
